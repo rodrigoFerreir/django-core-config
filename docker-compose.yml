@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  aplication:
+    container_name: aplication
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./aplication:/aplication
+    env_file:
+      - ./dotenv_files/.env
+    depends_on:
+      - psql
+  psql:
+    container_name: psql
+    image: postgres:13-alpine
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+    env_file:
+      - ./dotenv_files/.env
